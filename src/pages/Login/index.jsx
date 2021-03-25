@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
+// import { Form, Mention } from '@ant-design/compatible';
+// import { Form, Input, Button } from 'antd';
+// import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import "./index.css";
 import logo from './img/logo.png'
 // 登陆路由组件
 export default class Login extends Component {
+
+    //提交回调
+    handleSubmit = (e) => {
+
+    }
+
     render() {
+
+        //拿到form对象
+        // const form = this.this.props.form;
+        
         return (
             <div className="login">
                 <div className="login-header">
@@ -35,10 +48,9 @@ export default class Login extends Component {
                             </Button>
                         </Form.Item>
                     </Form>
-
-
                 </div>
             </div>
         )
     }
 }
+
