@@ -1,5 +1,7 @@
 import axios from "axios";
 import { message } from "antd";
+
+
 /**
  * 
  * @param {*} url 请求地址
@@ -7,11 +9,9 @@ import { message } from "antd";
  * @param {*} type  请求类型, 默认GET 调用时如果为get可以不用传递
  * @returns 
  */
-
-
 export default function ajax(url, data = {}, type = "GET") {
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let promise;
         //根据type发送get请求
         if (type === "GET") {
@@ -19,6 +19,7 @@ export default function ajax(url, data = {}, type = "GET") {
                 params: data
             });
         }
+        
         //post请求
         else {
             promise = axios.post(url, data);

@@ -6,7 +6,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 
 import "./index.css";
-import logo from './img/logo3.png'
+import logo from './img/logo2.png'
 import { reqLogin } from '../../api'
 import memoryUtil from "../../utils/memoryUtil"
 import localUtil from "../../utils/localUtil"
@@ -30,15 +30,12 @@ export default class Login extends Component {
             memoryUtil.user = result.data;
             localUtil.saveUser(result.data);
             this.props.history.replace("/");
-
-
         } else {
             message.error(result.msg);
         }
     }
 
     render() {
-
         const user = memoryUtil.user;
         if (user && user._id) {
             return <Redirect to="/" />
@@ -53,7 +50,6 @@ export default class Login extends Component {
                 <div className="login-body">
                     <h2>欢迎使用</h2>
                     <Form
-                        // ref={this.formRef}
                         name="normal_login"
                         className="login-form"
                         onFinish={this.onFinish}
@@ -91,13 +87,6 @@ export default class Login extends Component {
                             />
                         </Form.Item>
 
-                        <Form.Item>
-                            <a className="login-form-forgot" href="">
-                                忘记密码
-                            </a>
-                        </Form.Item>
-
-
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit" className="login-form-button">
@@ -105,9 +94,8 @@ export default class Login extends Component {
                             </Button>
                         </Form.Item>
                     </Form>
-                </div >
-            </div >
-
+                </div>
+            </div>
 
 
         )

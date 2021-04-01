@@ -1,0 +1,25 @@
+.admin_left_nav {
+    color: white;
+}
+
+.admin_left_nav .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    /* background-color: teal; */
+    padding: 0 20px;
+    background-color: #002140;
+}
+
+.admin_left_nav .header img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+}
+
+.admin_left_nav .header h2 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 0px;
+}
