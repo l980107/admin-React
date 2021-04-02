@@ -8,7 +8,7 @@
     height: 40px;
     line-height: 40px;
     text-align: right;
-    border-bottom: 1px solid #1678ff;
+    border-bottom: 1px solid #666;
     padding-right: 20px;
 }
 
@@ -50,8 +50,8 @@
 .admin_header .admin_header_bottom .admin_header_bottom_right .img {
     padding: 0 10px;
     margin: 0 10px;
-    border-left: 1px solid #1678ff;
-    border-right: 1px solid #1678ff;
+    border-left: 1px solid #666;
+    border-right: 1px solid #666;
 }
 
 .admin_header .admin_header_bottom .admin_header_bottom_right span {

@@ -6,4 +6,7 @@
     height: 100%;
     font-size: 30px;
     color: #666;
+    background: url(./th.jpeg) no-repeat;
+    background-position: center top;
+    background-size: 100% 100%;
 }

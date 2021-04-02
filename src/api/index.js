@@ -37,7 +37,7 @@ export const reqCategory = parentId => ajax('/manage/category/list', { parentId 
  * @param categoryName  添加品类的名称
  */
 export const addCategory = (parentId, categoryName) => {
-	ajax('/manage/category/add', { parentId, categoryName }, 'POST');
+    ajax('/manage/category/add', { parentId, categoryName }, 'POST');
 };
 
 /**
@@ -46,16 +46,51 @@ export const addCategory = (parentId, categoryName) => {
  * @param categoryName  名称
  */
 export const updataCategory = (categoryId, categoryName) => {
-	return ajax('/manage/category/update', { categoryId, categoryName }, 'POST');
+    return ajax('/manage/category/update', { categoryId, categoryName }, 'POST');
 };
 
 /**
- *
+ * 获取商品列表
  * @param  pageNum 页码
  * @param  pageSize 每页条目数
  */
-export const getProducts = (pageNum, pageSize) => {
-	return ajax('/manage/product/list', { pageNum, pageSize });
+export const reqProducts = (pageNum, pageSize) => {
+    return ajax('/manage/product/list', { pageNum, pageSize });
+};
+
+/**
+ * 根据关键词搜索商品列表
+ * @param {页码}    pageNum
+ * @param {每页条目数}  pageSize
+ * @param {搜索的关键词}    searchName
+ * @param {根据 名称/描述 搜索} productType
+ * @returns
+ */
+
+/**
+ * 根据分类id获取分类列表
+ * @param {分类id} categoryId
+ * @returns
+ */
+export const reqCategoryById = categoryId => {
+    return ajax('/manage/category/info', { categoryId });
+};
+export const reqSearchProduct = ({ pageNum, pageSize, searchName, productType }) => {
+    return ajax('/manage/product/search', {
+        pageNum,
+        pageSize,
+        [productType]: searchName,
+    });
+};
+
+/**
+ * 对商品进行上架、下架处理
+ * @param {商品ID} productId
+ * @param {需要修改的状态 1/上架 2/下架} status
+ * @returns
+ */
+export const reqProductStatus = (productId, status) => {
+    return ajax('http://localhost:5000/manage/product/updateStatus', { productId, status }, 'POST');
 };
 
 /**
@@ -63,22 +98,22 @@ export const getProducts = (pageNum, pageSize) => {
  * @param city 高德城市码
  */
 export const getWeather = city => {
-	//jsonp发送请求
-	return new Promise((resolve, reject) => {
-		//请求url
-		const url = `https://restapi.amap.com/v3/weather/weatherInfo?key=3cb4f0ed55ba32b2a979897ef3b114a4&city=${city}&extensions=base`;
-		jsonp(url, {}, (err, data) => {
-			// console.log("jsonp() ", err, data);
-			//如果成功了
-			if (!err && data.status === '1') {
-				//取出需要数据 区域、温度、天气
-				const { city, temperature, weather, winddirection } = data.lives[0];
-				resolve({ city, temperature, weather, winddirection });
-			} else {
-				message.error('获取天气信息失败！');
-			}
-		});
-	});
+    //jsonp发送请求
+    return new Promise((resolve, reject) => {
+        //请求url
+        const url = `https://restapi.amap.com/v3/weather/weatherInfo?key=3cb4f0ed55ba32b2a979897ef3b114a4&city=${city}&extensions=base`;
+        jsonp(url, {}, (err, data) => {
+            // console.log("jsonp() ", err, data);
+            //如果成功了
+            if (!err && data.status === '1') {
+                //取出需要数据 区域、温度、天气
+                const { city, temperature, weather, winddirection } = data.lives[0];
+                resolve({ city, temperature, weather, winddirection });
+            } else {
+                message.error('获取天气信息失败！');
+            }
+        });
+    });
 };
 
 // getWeather("330105");
