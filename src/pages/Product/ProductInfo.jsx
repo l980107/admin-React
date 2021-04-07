@@ -11,7 +11,7 @@ export default class ProductInfo extends Component {
     };
 
     async componentDidMount() {
-        const { pCategoryId, categoryId } = this.props.location.state;
+        const { pCategoryId } = this.props.location.state;
         //发送请求获取分类名称
         const result = await reqCategoryById(pCategoryId);
         if (result.status === 0) {
@@ -21,7 +21,7 @@ export default class ProductInfo extends Component {
     }
 
     render() {
-        const { name, desc, price, imgs } = this.props.location.state;
+        const { name, desc, price } = this.props.location.state;
         const { parentName } = this.state;
         const title = (
             <span>

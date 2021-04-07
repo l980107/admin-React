@@ -20,7 +20,7 @@ class LeftNav extends Component {
                 );
             } else {
                 //查找cItem的key是否等于path
-                const cItem = item.children.find(cItem => cItem.key === path);
+                const cItem = item.children.find(cItem => path.indexOf(cItem.key) === 0);
                 //如果存在说明Item需要打开
                 if (cItem) {
                     this.openKey = item.key;
@@ -41,14 +41,16 @@ class LeftNav extends Component {
     render() {
         //动态获取当前路径，用于导航栏的选中
         // const memuNodes = memuNodes;
-        const path = this.props.location.pathname;
-
+        let path = this.props.location.pathname;
+        if (path.indexOf('/product') === 0) {
+            path = '/product';
+        }
         const openKey = this.openKey;
         return (
             <div className='admin_left_nav'>
                 <Link to='/' className='header'>
                     <img src={logo} alt='logo' />
-                    <h2>Welcom</h2>
+                    <h2>欢迎使用</h2>
                 </Link>
                 <div style={{ width: 200 }}>
                     <Menu

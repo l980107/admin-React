@@ -49,6 +49,7 @@ export default class Admin extends Component {
                             <Redirect to="/home" />
                         </Switch>
                     </Content>
+                    
                     <Footer style={{ textAlign: "center", color: "rgba(0,0,0,.4)", }}>Welcome to my system , This system comes from 梁泽玮 </Footer>
                 </Layout>
             </Layout>

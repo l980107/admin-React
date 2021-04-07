@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Select, Card, Table, Button, Input } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Select, Card, Table, Button, Input, message } from 'antd';
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import Linkbutton from '../../components/Linkbutton';
 
-import { reqProducts, reqSearchProduct } from '../../api/index';
+import { reqProducts, reqSearchProduct, reqProductStatus } from '../../api/index';
 import { PAGE_SIZE } from '../../utils/comps';
 export default class ProductHome extends Component {
     state = {
@@ -12,6 +12,19 @@ export default class ProductHome extends Component {
         loading: false,
         productType: 'productName', //默认是按照名称搜索
         searchName: '', //搜索关键词
+    };
+    /**
+     *
+     * @param _id 需要更新商品的id
+     * @param status 商品上架、下架状态
+     */
+    reqProductStatus = async (_id, status) => {
+        const result = await reqProductStatus(_id, status);
+        if (result.status === 0) {
+            message.success('更新商品成功');
+            //成功更新列表
+            this.getProducts(this.pageNum);
+        }
     };
 
     /**
@@ -38,12 +51,23 @@ export default class ProductHome extends Component {
             {
                 width: 100,
                 title: '状态',
-                dataIndex: 'status',
-                render: status => {
+                // dataIndex: 'status',
+                render: product => {
+                    const { status, _id } = product;
                     return (
                         <span>
-                            <Button type='primary'>下架</Button>
-                            <span style={{ display: 'block' }}>在售</span>
+                            <Button
+                                onClick={() => {
+                                    this.reqProductStatus(_id, status === 1 ? 2 : 1);
+                                    // console.log(product);
+                                }}
+                                type='primary'
+                            >
+                                {status === 1 ? '下架' : '上架'}
+                            </Button>
+                            <span style={{ display: 'block' }}>
+                                {status === 1 ? '在售' : '已下架'}
+                            </span>
                         </span>
                     );
                 },
@@ -61,17 +85,25 @@ export default class ProductHome extends Component {
                             >
                                 状态
                             </Linkbutton>
-                            <Linkbutton>修改</Linkbutton>
+                            <Linkbutton
+                                onClick={() => {
+                                    this.props.history.push('/product/add', product);
+                                }}
+                            >
+                                修改
+                            </Linkbutton>
                         </span>
                     );
                 },
             },
         ];
     };
+
     /**
      * 发送请求获取商品列表
      */
     getProducts = async pageNum => {
+        this.pageNum = pageNum; //保存pageNum 让其他方法可以看到
         this.setState({ loading: true });
         const { productType, searchName } = this.state;
         //定义返回值
@@ -150,6 +182,7 @@ export default class ProductHome extends Component {
                         this.getProducts(1);
                     }}
                 >
+                    <SearchOutlined />
                     搜索
                 </Button>
             </span>
@@ -159,7 +192,12 @@ export default class ProductHome extends Component {
          * cardextra
          */
         const extra = (
-            <Button type='primary'>
+            <Button
+                onClick={() => {
+                    this.props.history.push('/product/add');
+                }}
+                type='primary'
+            >
                 <PlusOutlined />
                 添加
             </Button>

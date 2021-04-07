@@ -59,6 +59,13 @@ export const reqProducts = (pageNum, pageSize) => {
 };
 
 /**
+ * 根据分类id获取分类列表
+ * @param {分类id} categoryId
+ * @returns
+ */
+export const reqCategoryById = categoryId => ajax('/manage/category/info', { categoryId });
+
+/**
  * 根据关键词搜索商品列表
  * @param {页码}    pageNum
  * @param {每页条目数}  pageSize
@@ -66,15 +73,6 @@ export const reqProducts = (pageNum, pageSize) => {
  * @param {根据 名称/描述 搜索} productType
  * @returns
  */
-
-/**
- * 根据分类id获取分类列表
- * @param {分类id} categoryId
- * @returns
- */
-export const reqCategoryById = categoryId => {
-    return ajax('/manage/category/info', { categoryId });
-};
 export const reqSearchProduct = ({ pageNum, pageSize, searchName, productType }) => {
     return ajax('/manage/product/search', {
         pageNum,
@@ -90,11 +88,25 @@ export const reqSearchProduct = ({ pageNum, pageSize, searchName, productType })
  * @returns
  */
 export const reqProductStatus = (productId, status) => {
-    return ajax('http://localhost:5000/manage/product/updateStatus', { productId, status }, 'POST');
+    return ajax('/manage/product/updateStatus', { productId, status }, 'POST');
 };
 
 /**
- *
+ *  对图片进行上传处理
+ * @param image 上传的图片
+ * @returns
+ */
+export const reqOnloadPictures = image => ajax('/manage/img/upload', { image }, 'POST');
+
+/**
+ *  对图片进行删除处理
+ * @param  name 图片名称
+ * @returns
+ */
+export const reqDeletePicture = name => ajax('/manage/img/delete', { name }, 'POST');
+
+/**
+ * 获取天气
  * @param city 高德城市码
  */
 export const getWeather = city => {
